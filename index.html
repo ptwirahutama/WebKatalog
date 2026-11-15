@@ -367,10 +367,17 @@ async function api(action,body,method,params){
 let apiNote='';
 /* Apps Script tidak sanggup mengirim ratusan KB sekaligus, jadi data diambil per halaman,
    maksimal 3 permintaan berbarengan supaya tidak kena batas Google. */
+/* Data diambil lewat POST: sebagian browser gagal memanggil Apps Script dengan GET,
+   dan POST juga tidak pernah disimpan browser sebagai salinan lama. */
+async function apiData(action,body){
+  const j=await api(action,{c:co,...body});
+  if(!j||!j.ok)throw new Error((j&&j.error)||'balasan kosong');
+  return j;
+}
 async function allPages(action,total,per,params){
   const n=Math.max(1,Math.ceil((total||0)/(per||120))),items=[];
   for(let i=0;i<n;i+=3){
-    const batch=await Promise.all(Array.from({length:Math.min(3,n-i)},(_,k)=>api(action,null,'GET',{...params,page:i+k})));
+    const batch=await Promise.all(Array.from({length:Math.min(3,n-i)},(_,k)=>apiData(action,{...params,page:i+k})));
     for(const r of batch)items.push(...(r.items||[]));
   }
   return items;
@@ -381,7 +388,7 @@ async function fetchCatalog(force){
   if(CONFIG.API){
     try{
       const tok=ses?ses.token:'';
-      const m=await api('meta',null,'GET',{token:tok});
+      const m=await apiData('meta',{token:tok});
       const products=await allPages('products',m.n.p,m.per.p,{});
       const inc=await allPages('includes',m.n.i,m.per.i,{token:tok});
       return {version:m.version,companies:m.companies,promos:m.promos,products,includes:inc,src:'api'};
