@@ -355,18 +355,37 @@ function disc(p){const d=p.d&&p.d[co];if(!d||!d.p)return null;const t=today();if
 const final=p=>{const d=disc(p);return d&&d.now!=null?d.now:p.harga};
 
 /* ---- akses data */
-async function api(action,body,method){
+async function api(action,body,method,params){
   if(!CONFIG.API)throw new Error('API belum diatur');
-  if(method==='GET'||!body){const u=new URL(CONFIG.API);u.searchParams.set('action',action);u.searchParams.set('c',co);u.searchParams.set('_',Date.now());
-    const r=await fetch(u);if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
+  if(method==='GET'||!body){const u=new URL(CONFIG.API);u.searchParams.set('action',action);u.searchParams.set('c',co);
+    if(params)for(const k in params){if(params[k]!==''&&params[k]!=null)u.searchParams.set(k,params[k])}
+    u.searchParams.set('_',Date.now());
+    const r=await fetch(u);if(!r.ok)throw new Error('HTTP '+r.status);
+    const j=await r.json();if(!j.ok)throw new Error(j.error||'gagal');return j}
   const r=await fetch(CONFIG.API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...body})});
   if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
 let apiNote='';
+/* Apps Script tidak sanggup mengirim ratusan KB sekaligus, jadi data diambil per halaman,
+   maksimal 3 permintaan berbarengan supaya tidak kena batas Google. */
+async function allPages(action,total,per,params){
+  const n=Math.max(1,Math.ceil((total||0)/(per||120))),items=[];
+  for(let i=0;i<n;i+=3){
+    const batch=await Promise.all(Array.from({length:Math.min(3,n-i)},(_,k)=>api(action,null,'GET',{...params,page:i+k})));
+    for(const r of batch)items.push(...(r.items||[]));
+  }
+  return items;
+}
 async function fetchCatalog(force){
   apiNote='';
   if(window.WHM_DATA)return window.WHM_DATA;
   if(CONFIG.API){
-    try{const j=await api('catalog',null,'GET');if(!j.ok)throw new Error(j.error||'gagal');j.src='api';return j}
+    try{
+      const tok=ses?ses.token:'';
+      const m=await api('meta',null,'GET',{token:tok});
+      const products=await allPages('products',m.n.p,m.per.p,{});
+      const inc=await allPages('includes',m.n.i,m.per.i,{token:tok});
+      return {version:m.version,companies:m.companies,promos:m.promos,products,includes:inc,src:'api'};
+    }
     catch(e){apiNote='Situs tidak bisa menghubungi Apps Script ('+e.message+'), jadi sementara memakai salinan data.json. Foto, diskon, dan login direktur belum aktif. Periksa URL di config.js dan pastikan deployment disetel "Who has access: Anyone".'}
   }
   const r=await fetch('data.json'+(force?'?t='+Date.now():''));
@@ -377,12 +396,10 @@ function ingest(j){
   INC=new Map();for(const i of D.includes)(INC.get(i.pid)||INC.set(i.pid,[]).get(i.pid)).push(i);
   P=D.products.filter(p=>p.status!=='Nonaktif');
   for(const p of P){p.items=INC.get(p.id)||[];p.nI=p.items.length||p.nI||0;
+    p.tampil=p.tampil||p.nama||p.kode;p.nama=p.nama||p.tampil;
     p.hay=[p.nama,p.tampil,p.kode,p.whm,p.kat,p.sub,p.std,p.spec,...p.items.map(i=>i.nama+' '+i.kode)].join(' ').toLowerCase()}
 }
-async function load(force){
-  const j=await fetchCatalog(force);ingest(j);
-  if(isAdm()&&CONFIG.API&&!window.WHM_DATA){try{const a=await api('admin_catalog',{token:ses.token});if(a.ok){ingest({...D,includes:a.includes,products:a.products||D.products});}else if(a.error==='sesi')logout(true)}catch(e){}}
-}
+async function load(force){const j=await fetchCatalog(force);ingest(j)}
 
 /* ---- tema perusahaan */
 function theme(){
