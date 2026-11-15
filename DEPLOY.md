@@ -34,12 +34,20 @@ assets/           <- 4 berkas logo
 Kalau terlanjur ikut terunggah foldernya sehingga jadi `web/index.html`, tidak perlu diulang:
 di Netlify → Site configuration → Build & deploy → Publish directory, isi `web`.
 
-### Link untuk customer
+### Alur halaman
+- `https://situs-anda.netlify.app/` → **halaman masuk**. Pilih perusahaan, isi nama direktur dan PIN.
+- Setelah masuk → katalog perusahaan tersebut dalam mode direktur (upload foto, diskon, harga include).
+- Tombol **Bagikan ke customer** menyalin tautan katalog, misalnya `...netlify.app/?c=whm`.
+- Customer yang membuka tautan itu langsung melihat katalog tanpa login: hanya lihat dan tombol
+  **Tanya produk ini** ke WhatsApp perusahaan yang membagikan. Tidak ada harga item include,
+  tidak ada pengaturan apa pun.
+- Di kaki halaman katalog ada tautan kecil **Masuk direktur** untuk kembali ke halaman masuk.
+
+Tautan customer kedua perusahaan:
 ```
-https://situs-anda.netlify.app/?c=whm          <- logo WHM, kode WHM-XXXX, WA Anda
-https://situs-anda.netlify.app/?c=prakarsa     <- logo Prakarsa, kode ARK/GE, WA Prakarsa
+.../?c=whm          logo WHM, kode WHM-XXXX, WhatsApp WHM
+.../?c=prakarsa     logo Prakarsa, kode ARK/GE, WhatsApp Prakarsa
 ```
-Tanpa `?c=`, situs memakai WHM. Direktur juga bisa menyalin link ini lewat tombol **Bagikan ke customer**.
 
 ### Mengubah pengaturan nanti
 Buka `config.js` di GitHub → ikon pensil → ubah → Commit. Netlify otomatis deploy ulang (± 1 menit).
@@ -67,11 +75,14 @@ URL-nya tetap sama, jadi `config.js` tidak perlu diubah lagi.
 ---
 
 ## C. Uji singkat
-1. Buka link customer → katalog tampil, tombol **Tanya produk ini** membuka WhatsApp yang benar.
-2. Klik ikon orang (kanan atas) → masuk sebagai direktur → buka satu produk → unggah foto.
-   Cek di Sheet: kolom **Foto ID** terisi, dan tab **Log Foto** bertambah satu baris.
+1. Buka alamat utama → muncul halaman masuk. Masuk dengan nama direktur dan PIN.
+2. Buka satu produk → unggah foto. Cek di Sheet: kolom **Foto ID** terisi dan tab **Log Foto** bertambah satu baris.
 3. Isi diskon 10% → simpan → harga lama tercoret dan muncul label **-10%**.
-4. Klik tombol **Muat data terbaru** (ikon panah melingkar) setelah mengubah Sheet.
+   Untuk banner promo, isi tab **Promo** di Sheet lalu ubah kolom Aktif menjadi **Ya**.
+4. Klik **Bagikan ke customer**, buka tautannya di jendela samaran (incognito).
+   Katalog harus langsung tampil tanpa diminta login, tanpa harga item include, dan tombol
+   **Tanya produk ini** membuka WhatsApp yang benar.
+5. Klik tombol **Muat data terbaru** (ikon panah melingkar) setelah mengubah Sheet.
 
 ## Catatan
 - Kalau `API` sudah diisi tapi situs tetap memakai data lama, berarti Apps Script belum di-deploy ulang,

@@ -18,7 +18,7 @@ URL API: `https://script.google.com/macros/s/XXXX/exec` (disebut `API`).
 
 Bentuk `catalog`:
 ```
-{ok, version, companies:{whm:{nama,wa,showInc}}, promos:[{judul,teks,label,s,e}],
+{ok, version, companies:{whm:{nama,wa,showInc}}, promos:[{judul,teks,label,img,s,e}],
  products:[{id,kode,whm,nama,tampil,kat,sub,varian,std,spec,qty,sat,harga,tipe,slug,nI,foto,d:{whm:{p,s,e}}}],
  includes:[{pid,grup,kode,nama,spec,qty,sat,harga(null bila disembunyikan),ket}]}
 ```
@@ -47,8 +47,13 @@ Kesalahan sesi: `{ok:false,error:'sesi'}` → login ulang.
 ### Snapshot penawaran (disarankan)
 Per baris penawaran simpan: `productId, kodeTampil, namaTampil, qty, hargaSatuan, diskonPct, hargaAkhir, itemSnapshot[]`, `perusahaan`, `tanggalSnapshot`, `versionSumber`.
 
+### Banner promo
+Baris pertama tab Promo yang aktif tampil sebagai banner besar di atas katalog; sisanya jadi strip tipis.
+Kolom **Gambar** opsional: isi ID file Drive atau URL untuk latar banner, kosongkan untuk blok warna perusahaan.
+Tombol pada banner memakai teks kolom **Label Tombol** dan menyaring katalog ke produk berdiskon.
+
 ## Cache & pembaruan
 Setiap sunting di Sheet (atau aksi direktur) mengubah `version`. Klien memanggil `catalog` lagi (tombol "Muat data terbaru"). Cache server 10 menit per versi.
 
 ## Struktur Sheet
-Produk (A–X; Kode WHM kolom V, Foto ID W), Include, Perusahaan (Kode, Nama, Direktur, PIN Hash, Salt, WhatsApp, Tampil Harga Include, Status), Diskon (Perusahaan, ID Produk, Persen, Diubah, Mulai, Selesai), Promo (Perusahaan, Judul, Teks, Label Tombol, Mulai, Selesai, Aktif), Aplikasi, Log Foto.
+Produk (A–X; Kode WHM kolom V, Foto ID W), Include, Perusahaan (Kode, Nama, Direktur, PIN Hash, Salt, WhatsApp, Tampil Harga Include, Status), Diskon (Perusahaan, ID Produk, Persen, Diubah, Mulai, Selesai), Promo (Perusahaan, Judul, Teks, Label Tombol, Mulai, Selesai, Aktif, Gambar), Aplikasi, Log Foto.

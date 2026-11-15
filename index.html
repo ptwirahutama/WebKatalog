@@ -1,6 +1,6 @@
 <!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Katalog Alat Laboratorium</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
 <style>
 /* Katalog bersama dua perusahaan. Tata letak sama; warna dan logo mengikuti perusahaan (data-co). */
 :root{
@@ -21,6 +21,81 @@
   --bg:#101119;--ink:#F2F2F6;--muted:#9C9FB2;--line:#2A2D3F;--tile:#1A1C29;--accent:#97A5FF;--accent-ink:#0B0E2A;--accent-soft:#222645;--sale:#FF6F76}}
 :root[data-co="prakarsa"][data-theme="dark"]{
   --bg:#101119;--ink:#F2F2F6;--muted:#9C9FB2;--line:#2A2D3F;--tile:#1A1C29;--accent:#97A5FF;--accent-ink:#0B0E2A;--accent-soft:#222645;--sale:#FF6F76}
+/* ===== Konsep Prakarsa: lembar data teknis. Huruf condensed, kartu berbingkai, label kapital. ===== */
+:root[data-co="prakarsa"]{--f-body:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-head:'Barlow Condensed','Barlow','Arial Narrow',system-ui,sans-serif}
+[data-co="prakarsa"] body{font-size:14.5px}
+[data-co="prakarsa"] .chip{text-transform:uppercase;letter-spacing:.07em;font-size:12.5px}
+[data-co="prakarsa"] .chip[aria-pressed="true"]{color:var(--accent);border-bottom-color:var(--sale);border-bottom-width:3px}
+[data-co="prakarsa"] .sel{text-transform:uppercase;letter-spacing:.06em;font-size:12px}
+[data-co="prakarsa"] .intro{border-left:4px solid var(--sale);padding-left:16px;margin-top:4px}
+[data-co="prakarsa"] .intro h1{font-family:var(--f-head);text-transform:uppercase;letter-spacing:.015em;font-weight:700;font-size:clamp(25px,3.4vw,35px)}
+/* tanpa tab di header; pencarian jadi besar seperti katalog distributor */
+[data-co="prakarsa"] .tabs{display:none}
+[data-co="prakarsa"] .tools{flex:1;justify-content:flex-end;gap:6px}
+[data-co="prakarsa"] .search{flex:1;width:auto;max-width:560px}
+[data-co="prakarsa"] .search input{border-radius:0;border:1px solid var(--line);background:var(--bg);height:40px}
+[data-co="prakarsa"] .hd-row{border-bottom:3px solid var(--accent);padding-bottom:12px}
+[data-co="prakarsa"] .sub-row{border-bottom:1px solid var(--line)}
+[data-co="prakarsa"] #sub{display:none}
+/* kategori di sisi kiri, bukan tab di atas */
+[data-co="prakarsa"] .layout{display:grid;grid-template-columns:234px minmax(0,1fr);gap:0 34px;align-items:start}
+.side{display:flex;flex-direction:column;gap:1px;padding-top:26px}
+.side .sh{font-family:var(--f-head);text-transform:uppercase;letter-spacing:.09em;font-size:11.5px;color:var(--muted);padding:0 0 10px;border-bottom:2px solid var(--accent);margin-bottom:8px}
+.sb{display:flex;justify-content:space-between;gap:10px;align-items:baseline;border:0;background:none;text-align:left;padding:9px 10px;font-size:13.5px;color:var(--ink);border-left:3px solid transparent}
+.sb span{color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}
+.sb:hover{background:var(--tile)}
+.sb[aria-pressed="true"]{background:var(--accent-soft);border-left-color:var(--sale);font-weight:600;color:var(--accent)}
+.subs{display:flex;flex-direction:column;border-left:1px solid var(--line);margin:2px 0 8px 13px}
+.ss{border:0;background:none;text-align:left;padding:7px 10px;font-size:12.5px;color:var(--muted)}
+.ss:hover{color:var(--ink)}
+.ss[aria-pressed="true"]{color:var(--sale);font-weight:600}
+.crumb{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:26px}
+.crumb:empty{display:none}
+[data-co="prakarsa"] .intro{padding-top:12px}
+/* produk sebagai baris daftar, bukan kotak grid */
+[data-co="prakarsa"] .grid{display:block;border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:20px;align-items:center;width:100%;
+  text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:14px 10px 14px 0}
+.row:hover{background:var(--tile)}
+.rt{width:92px;height:92px;background:var(--tile);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;flex:none}
+.rt img{width:100%;height:100%;object-fit:cover}
+.rt span{font-family:var(--f-mono);font-size:11px;color:var(--muted);padding:0 6px;text-align:center;overflow-wrap:anywhere}
+.rt .off{font-size:11px;padding:2px 6px}
+.rk{font-family:var(--f-mono);font-size:11px;color:var(--sale);font-weight:600;letter-spacing:.09em}
+.rn{font-family:var(--f-head);font-size:19px;font-weight:600;line-height:1.2;margin:3px 0 5px;overflow-wrap:anywhere}
+.rm{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px}
+.rm .tag{border:1px solid var(--line);padding:1px 7px;text-transform:uppercase;letter-spacing:.05em;font-size:10.5px}
+.rp{text-align:right;white-space:nowrap}
+.rp .price{justify-content:flex-end;color:var(--accent);margin:0}
+.rp .price.s{color:var(--sale)}
+.rp small{display:block;margin-top:2px}
+.rp .was{display:block;font-size:12.5px}
+[data-co="prakarsa"] .hero-promo{border-left:6px solid var(--sale)}
+[data-co="prakarsa"] .hp-t{font-family:var(--f-head);text-transform:uppercase;letter-spacing:.01em}
+@media(max-width:880px){
+  [data-co="prakarsa"] .layout{display:block}
+  [data-co="prakarsa"] #sub{display:inline-block}
+  .side{flex-direction:row;overflow-x:auto;scrollbar-width:none;gap:8px;padding:16px 0 12px;border-bottom:1px solid var(--line)}
+  .side::-webkit-scrollbar{display:none}
+  .side .sh,.subs{display:none}
+  .sb{white-space:nowrap;border:1px solid var(--line);border-left-width:3px;padding:8px 12px}
+  .crumb{padding-top:16px}
+}
+@media(max-width:560px){
+  .row{grid-template-columns:76px minmax(0,1fr);gap:14px;padding:14px 0}
+  .rt{width:76px;height:76px}
+  .rn{font-size:17px}
+  .rp{grid-column:2;text-align:left}
+  .rp .price{justify-content:flex-start}
+}
+[data-co="prakarsa"] .more,[data-co="prakarsa"] .btn{text-transform:uppercase;letter-spacing:.09em;font-weight:600;font-size:13px}
+[data-co="prakarsa"] .sheet h2,[data-co="prakarsa"] .acard h1{font-family:var(--f-head);text-transform:uppercase;letter-spacing:.015em}
+[data-co="prakarsa"] h3{font-family:var(--f-head);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--line);padding-bottom:7px}
+[data-co="prakarsa"] th{text-transform:uppercase;letter-spacing:.07em}
+[data-co="prakarsa"] .dl dt{text-transform:uppercase;letter-spacing:.06em;font-size:11.5px;padding-top:2px}
+[data-co="prakarsa"] .promo .pt{font-family:var(--f-head);text-transform:uppercase;letter-spacing:.02em}
+[data-co="prakarsa"] .big{font-family:var(--f-head);font-size:34px}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5;margin:0;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -66,12 +141,30 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .sw input{appearance:none;-webkit-appearance:none;width:34px;height:20px;border-radius:999px;background:var(--line);position:relative;margin:0;cursor:pointer;transition:background .15s}
 .sw input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
 .sw input:checked{background:var(--accent)}.sw input:checked::after{transform:translateX(14px)}
-/* promo */
+/* promo utama (banner besar) */
+.hero-promo{position:relative;margin-top:22px;background:var(--accent);color:var(--accent-ink);overflow:hidden;
+  min-height:clamp(190px,25vw,330px);display:flex;align-items:flex-end}
+.hero-promo.img{background-size:cover;background-position:center;color:#fff}
+.hero-promo.img::after{content:"";position:absolute;inset:0;background:linear-gradient(95deg,rgba(0,0,0,.72),rgba(0,0,0,.18))}
+.hp-in{position:relative;z-index:1;padding:clamp(20px,3vw,42px);max-width:720px}
+.hp-t{font-size:clamp(25px,4.4vw,48px);font-weight:700;letter-spacing:-.02em;line-height:1.04;text-wrap:balance}
+.hp-d{margin-top:10px;font-size:clamp(13px,1.4vw,16px);opacity:.93;max-width:580px}
+.hp-m{margin-top:12px;font-size:12.5px;opacity:.85}
+.hp-b{margin-top:20px;background:var(--accent-ink);color:var(--accent);border-color:var(--accent-ink)}
+.hero-promo.img .hp-b{background:#fff;color:#141414;border-color:#fff}
+/* di mode gelap banner tidak memakai blok terang penuh */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero-promo:not(.img){background:var(--accent-soft);color:var(--ink)}
+  :root:not([data-theme="light"]) .hero-promo:not(.img) .hp-b{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}}
+:root[data-theme="dark"] .hero-promo:not(.img){background:var(--accent-soft);color:var(--ink)}
+:root[data-theme="dark"] .hero-promo:not(.img) .hp-b{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+/* promo tambahan (strip tipis) */
 .promo{display:flex;gap:14px;align-items:center;background:var(--accent);color:var(--accent-ink);padding:16px 20px;margin-top:18px}
 .promo .pt{font-weight:700;font-size:clamp(16px,2.2vw,20px);letter-spacing:-.01em}
 .promo .pd{font-size:13px;opacity:.9}
 .promo .pc{margin-left:auto;font-size:12px;white-space:nowrap;border:1px solid currentColor;padding:4px 10px;opacity:.95}
 .promos{display:grid;gap:8px}
+.warn{background:var(--tile);border-left:3px solid var(--sale);padding:12px 16px;font-size:13px;margin-top:18px;line-height:1.55}
+.warn b{color:var(--sale)}
 @media (max-width:760px){.promo{flex-wrap:wrap;padding:14px 16px}.promo .pc{margin-left:0}}
 /* list */
 .intro{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:26px 0 18px}
@@ -148,11 +241,42 @@ tr.grp td{color:var(--accent);font-weight:600;padding-top:16px}
   .sheet{padding-left:18px}
   .dl{grid-template-columns:1fr;gap:2px}.dl dd{margin-bottom:8px}
 }
+/* halaman masuk */
+.auth{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:40px 0}
+.acard{width:min(410px,100%)}
+.alogo{height:42px;width:auto;max-width:100%;margin-bottom:30px}
+.acard h1{font-size:23px;font-weight:700;letter-spacing:-.015em;margin:0 0 6px}
+.acard .lead{margin:0 0 26px;color:var(--muted);font-size:13.5px}
+.acard label{display:block;margin-bottom:14px;font-size:12.5px;color:var(--muted)}
+.acard .in{margin-top:5px;height:46px}
+.btn.blk{width:100%;margin-top:6px;padding:15px 24px}
+.fine{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);line-height:1.6}
+.athm{position:fixed;top:max(14px,env(safe-area-inset-top,0px));right:14px}
+.ftlk{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .msearch{display:none;padding:0 0 4px}.msearch .search{display:block;width:100%}
 @media (prefers-reduced-motion:no-preference){.card .thumb{transition:filter .15s}.card:hover .thumb{filter:brightness(.97)}}
 </style>
 
-<div class="wrap">
+<div class="auth" id="auth" hidden>
+  <button class="ib athm" id="theme2" type="button" aria-label="Ganti mode tampilan" title="Mode terang / gelap">
+    <svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+    <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+  <div class="acard">
+    <img class="alogo logo-l" id="algl" alt=""><img class="alogo logo-d" id="algd" alt="">
+    <h1>Katalog Alat Laboratorium</h1>
+    <p class="lead">Masuk untuk mengelola katalog perusahaan Anda dan membagikan tautan ke customer.</p>
+    <form id="af">
+      <label>Perusahaan<select class="in" id="ac"><option value="whm">PT. Wira Hutama Multindo</option><option value="prakarsa">CV. Prakarsa Tekindo</option></select></label>
+      <label>Nama direktur<input class="in" id="an" autocomplete="username" required></label>
+      <label>PIN<input class="in" id="ap" type="password" inputmode="numeric" autocomplete="current-password" required></label>
+      <div class="err" id="ae"></div>
+      <button class="btn blk" type="submit" id="ab">Masuk</button>
+    </form>
+    <p class="fine">Customer tidak perlu masuk. Mereka cukup membuka tautan katalog yang Anda bagikan lewat tombol <b>Bagikan ke customer</b> setelah masuk.</p>
+  </div>
+</div>
+<div class="wrap" id="app" hidden>
   <header class="hd">
     <div class="hd-row">
       <a class="logo" href="#" id="home"><img class="logo-l" id="lgl" alt=""><img class="logo-d" id="lgd" alt=""></a>
@@ -164,7 +288,6 @@ tr.grp td{color:var(--accent);font-weight:600;padding-top:16px}
           <svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
           <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         </button>
-        <button class="ib" id="login" type="button" aria-label="Masuk direktur" title="Masuk direktur"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.2-6.5 8-6.5s7 2 8 6.5"/></svg></button>
       </div>
     </div>
     <div class="msearch"><div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q2" type="search" placeholder="Cari nama, kode, atau standar" aria-label="Cari produk"></div></div>
@@ -179,10 +302,16 @@ tr.grp td{color:var(--accent);font-weight:600;padding-top:16px}
   </header>
   <div class="adm" id="adm" hidden></div>
   <div class="promos" id="promos"></div>
-  <div class="intro"><h1 id="brand">Katalog Alat Laboratorium</h1><p><span id="count"></span> &middot; <span id="hint"></span></p></div>
-  <div class="grid" id="grid"></div>
-  <button class="more" id="more" type="button" hidden>Tampilkan lebih banyak</button>
-  <div class="empty" id="empty" hidden>Tidak ada produk yang cocok. Coba kata kunci lain atau hapus filter.</div>
+  <div class="layout">
+    <aside class="side" id="side" hidden aria-label="Kategori"></aside>
+    <div class="main">
+      <div class="crumb" id="crumb"></div>
+      <div class="intro"><h1 id="brand">Katalog Alat Laboratorium</h1><p><span id="count"></span> &middot; <span id="hint"></span></p></div>
+      <div class="grid" id="grid"></div>
+      <button class="more" id="more" type="button" hidden>Tampilkan lebih banyak</button>
+      <div class="empty" id="empty" hidden>Tidak ada produk yang cocok. Coba kata kunci lain atau hapus filter.</div>
+    </div>
+  </div>
   <div class="ft" id="ft"></div>
 </div>
 <div id="layer"></div>
@@ -203,14 +332,15 @@ const today=()=>new Date().toISOString().slice(0,10);
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},sget(k){try{return sessionStorage.getItem(k)}catch(e){return null}},sset(k,v){try{v==null?sessionStorage.removeItem(k):sessionStorage.setItem(k,v)}catch(e){}}};
 
 /* ---- perusahaan: dari ?c=, lalu ingatan terakhir */
-let co=(new URLSearchParams(location.search).get('c')||'').toLowerCase();
-if(!CO[co])co=store.get('co')&&CO[store.get('co')]?store.get('co'):'whm';
-store.set('co',co);
-let D={products:[],includes:[],promos:[],companies:{},version:''};   // data katalog
-let P=[],INC=new Map(),view=[],shown=0,cat='';
 let ses=null;   // sesi direktur {token,company,director}
 try{ses=JSON.parse(store.sget('ses')||'null')}catch(e){}
-if(ses&&ses.company!==co)ses=null;
+let co=(new URLSearchParams(location.search).get('c')||'').toLowerCase();
+if(!CO[co])co=ses&&CO[ses.company]?ses.company:'';          // tanpa ?c= dan tanpa sesi = halaman masuk
+if(ses&&co&&ses.company!==co)ses=null;                       // link customer perusahaan lain = mode viewer
+let mode=co?'catalog':'login';
+if(co)store.set('co',co);
+let D={products:[],includes:[],promos:[],companies:{},version:''};   // data katalog
+let P=[],INC=new Map(),view=[],shown=0,cat='';
 const isAdm=()=>!!ses;
 const company=()=>{const d=D.companies[co]||{},w=(window.CONFIG&&CONFIG.WA||{})[co]||'';
   const live=Object.fromEntries(Object.entries(d).filter(([k,v])=>v!==''&&v!=null));
@@ -231,10 +361,17 @@ async function api(action,body,method){
     const r=await fetch(u);if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
   const r=await fetch(CONFIG.API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...body})});
   if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
+let apiNote='';
 async function fetchCatalog(force){
+  apiNote='';
   if(window.WHM_DATA)return window.WHM_DATA;
-  if(CONFIG.API){const j=await api('catalog',null,'GET');if(!j.ok)throw new Error(j.error||'gagal');return j}
-  const r=await fetch('data.json'+(force?'?t='+Date.now():''));if(!r.ok)throw new Error('data.json '+r.status);return r.json()}
+  if(CONFIG.API){
+    try{const j=await api('catalog',null,'GET');if(!j.ok)throw new Error(j.error||'gagal');j.src='api';return j}
+    catch(e){apiNote='Situs tidak bisa menghubungi Apps Script ('+e.message+'), jadi sementara memakai salinan data.json. Foto, diskon, dan login direktur belum aktif. Periksa URL di config.js dan pastikan deployment disetel "Who has access: Anyone".'}
+  }
+  const r=await fetch('data.json'+(force?'?t='+Date.now():''));
+  if(!r.ok)throw new Error('data.json tidak ditemukan (HTTP '+r.status+'). Pastikan data.json ikut terunggah ke repo.');
+  const j=await r.json();j.src='static';return j}
 function ingest(j){
   D=j;D.companies=D.companies||{};D.promos=D.promos||[];D.includes=D.includes||[];
   INC=new Map();for(const i of D.includes)(INC.get(i.pid)||INC.set(i.pid,[]).get(i.pid)).push(i);
@@ -252,18 +389,25 @@ function theme(){
   const r=document.documentElement;r.dataset.co=co;const c=company();
   $('lgl').src=c.logoL;$('lgd').src=c.logoD;$('lgl').alt=$('lgd').alt=c.nama;$('home').setAttribute('aria-label',c.nama);
   document.title='Katalog '+c.nama;
-  $('ft').innerHTML=`<b>${esc(c.nama)}</b>`;
+  $('ft').innerHTML=`<b>${esc(c.nama)}</b>`+(isAdm()?'':` &middot; <a class="ftlk" href="${esc(location.pathname)}">Masuk direktur</a>`);
   $('brand').textContent='Katalog Alat Laboratorium';
 }
 
 /* ---- daftar */
 function buildFilters(){
-  const cats=[...new Set(P.map(p=>p.kat))];
-  $('chips').innerHTML=`<button class="chip" type="button" aria-pressed="${cat===''}" data-c="">Semua</button>`+
+  const cats=[...new Set(P.map(p=>p.kat))],pra=co==='prakarsa';
+  $('chips').innerHTML=pra?'':`<button class="chip" type="button" aria-pressed="${cat===''}" data-c="">Semua</button>`+
     cats.map(c=>`<button class="chip" type="button" aria-pressed="${cat===c}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
   const subs=[...new Set(P.filter(p=>!cat||p.kat===cat).map(p=>p.sub))];const cur=$('sub').value;
   $('sub').innerHTML='<option value="">Semua sub kategori</option>'+subs.map(s=>`<option>${esc(s)}</option>`).join('');
   if(subs.includes(cur))$('sub').value=cur;
+  $('side').hidden=!pra;
+  if(pra){const sv=$('sub').value;
+    $('side').innerHTML='<div class="sh">Kategori alat</div>'+
+      `<button class="sb" type="button" data-c="" aria-pressed="${cat===''}">Semua produk<span>${P.length}</span></button>`+
+      cats.map(c=>`<button class="sb" type="button" data-c="${esc(c)}" aria-pressed="${cat===c}">${esc(c)}<span>${P.filter(p=>p.kat===c).length}</span></button>`+
+        (cat===c&&subs.length>1?`<div class="subs">${subs.map(s=>`<button class="ss" type="button" data-s="${esc(s)}" aria-pressed="${sv===s}">${esc(s)}</button>`).join('')}</div>`:'')).join('');
+  }
 }
 function apply(){
   const toks=$('q').value.toLowerCase().split(/\s+/).filter(Boolean),sub=$('sub').value,tp=$('tipe').value,so=$('sort').value;
@@ -272,6 +416,7 @@ function apply(){
   if(so==='asc'||so==='desc')view.sort((a,b)=>((final(a)??Infinity)-(final(b)??Infinity))*(so==='asc'?1:-1)||0);
   if(so==='disc')view.sort((a,b)=>((disc(b)?.pct||0)-(disc(a)?.pct||0)));
   shown=0;$('grid').innerHTML='';more();
+  $('crumb').innerHTML=co!=='prakarsa'?'':'Katalog'+(cat?' / '+esc(cat):'')+($('sub').value?' / '+esc($('sub').value):'');
   $('count').textContent=`${view.length} dari ${P.length} produk`;
   $('hint').textContent='Harga dalam Rupiah, belum termasuk pajak dan ongkos kirim';
   $('empty').hidden=view.length>0;
@@ -287,15 +432,35 @@ function card(p){
   return `<button class="card" type="button" data-id="${esc(p.id)}"><div class="thumb">${t}</div><div class="cb">
     <div class="nm">${esc(p.tampil)}</div><div class="kode">${esc(codeOf(p))}</div>
     ${p.std?`<div class="std">${esc(p.std)}</div>`:''}${priceHtml(p)}</div></button>`}
+const imgTag=(u,fallback)=>u?`<img src="${esc(u)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'${esc(fallback)}'}))">`:`<span>${esc(fallback)}</span>`;
+/* Prakarsa: satu produk satu baris daftar, kode dan standar di depan */
+function row(p){
+  const u=fotoUrl(p),d=disc(p),per=p.tipe==='Paket'?'per set':'per '+esc(p.sat);
+  const tags=[p.std?`<span class="tag">${esc(p.std)}</span>`:'',p.tipe==='Paket'?`<span class="tag">Paket ${p.nI||p.items.length} item</span>`:'',`<span>${esc(p.sub)}</span>`].join('');
+  const price=p.harga==null?'<div class="price">Hubungi kami</div>'
+    :d?`<div class="price s">${rp(d.now)}</div><span class="was">${rp(p.harga)}</span><small>${per}</small>`
+      :`<div class="price">${rp(p.harga)}</div><small>${per}</small>`;
+  return `<button class="row" type="button" data-id="${esc(p.id)}">
+    <div class="rt">${imgTag(u,codeOf(p))}${d?`<div class="off">-${d.pct}%</div>`:''}</div>
+    <div><div class="rk">${esc(codeOf(p))}</div><div class="rn">${esc(p.tampil)}</div><div class="rm">${tags}</div></div>
+    <div class="rp">${price}</div></button>`}
+const tile=p=>co==='prakarsa'?row(p):card(p);
 function more(){
   const next=view.slice(shown,shown+CONFIG.pageSize);
-  $('grid').insertAdjacentHTML('beforeend',next.map(card).join(''));shown+=next.length;
+  $('grid').insertAdjacentHTML('beforeend',next.map(tile).join(''));shown+=next.length;
   $('more').hidden=shown>=view.length;$('more').textContent=`Tampilkan lebih banyak (${view.length-shown} lagi)`;
 }
 function promos(){
   const t=today(),L=(D.promos||[]).filter(x=>x.aktif!==false&&(!x.co||x.co==='all'||x.co===co)&&(!x.s||t>=x.s)&&(!x.e||t<=x.e));
   const fmt=s=>new Date(s+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
-  $('promos').innerHTML=L.map(x=>`<div class="promo"><div><div class="pt">${esc(x.judul)}</div>${x.teks?`<div class="pd">${esc(x.teks)}</div>`:''}</div>${x.e?`<div class="pc">Sampai ${fmt(x.e)}</div>`:''}</div>`).join('');
+  let html='';
+  if(L[0]){const x=L[0],img=x.img?fotoUrl({foto:x.img}):'';
+    html=`<div class="hero-promo${img?' img':''}"${img?` style="background-image:url('${esc(img)}')"`:''}><div class="hp-in">
+      <div class="hp-t">${esc(x.judul)}</div>${x.teks?`<div class="hp-d">${esc(x.teks)}</div>`:''}
+      ${x.e?`<div class="hp-m">Berlaku sampai ${fmt(x.e)}</div>`:''}
+      <button class="btn hp-b" type="button" id="pdisc">${esc(x.label||'Lihat produk diskon')}</button></div></div>`}
+  $('promos').innerHTML=html+L.slice(1).map(x=>`<div class="promo"><div><div class="pt">${esc(x.judul)}</div>${x.teks?`<div class="pd">${esc(x.teks)}</div>`:''}</div>${x.e?`<div class="pc">Sampai ${fmt(x.e)}</div>`:''}</div>`).join('');
+  if(apiNote)$('promos').insertAdjacentHTML('afterbegin',`<div class="warn"><b>Perhatian.</b> ${esc(apiNote)}</div>`);
 }
 
 /* ---- WhatsApp */
@@ -346,39 +511,45 @@ function toast(m,ms=2600){const t=$('toast');t.innerHTML=`<div class="toast">${e
 
 /* ---- direktur: masuk, foto, diskon, harga include, bagikan */
 function admBar(){
-  const b=$('adm');b.hidden=!isAdm();$('login').classList.toggle('on',isAdm());
+  const b=$('adm');b.hidden=!isAdm();
   if(!isAdm()){b.innerHTML='';return}
   const c=company();
   b.innerHTML=`<span>Mode direktur: <b>${esc(ses.director)}</b> &middot; ${esc(c.nama)}</span><span class="sp"></span>
     <label class="sw"><input type="checkbox" id="swInc" ${c.showInc?'checked':''}>Tampilkan harga item include ke customer</label>
     <button class="lk" type="button" id="share">Bagikan ke customer</button><button class="lk" type="button" id="logout">Keluar</button>`;
 }
-function openLogin(){
-  if(isAdm()){return}
-  $('layer').innerHTML=`<div class="scrim" data-close></div><aside class="sheet sm" role="dialog" aria-modal="true" aria-label="Masuk direktur">
-    <button class="close" type="button" data-close>Tutup</button><h2>Masuk direktur</h2>
-    <p class="note">Khusus direktur untuk mengatur foto, diskon, dan tampilan harga. Customer tidak perlu masuk.</p>
-    <form id="lf"><div class="fr"><label>Perusahaan<select class="in" id="lc"><option value="whm">PT. Wira Hutama Multindo</option><option value="prakarsa">CV. Prakarsa Tekindo</option></select></label></div>
-    <div class="fr"><label>Nama direktur<input class="in" id="ln" autocomplete="username" required></label></div>
-    <div class="fr"><label>PIN<input class="in" id="lp" type="password" inputmode="numeric" autocomplete="current-password" required></label></div>
-    <div class="err" id="le"></div><div class="acts"><button class="btn" type="submit" id="lb">Masuk</button></div></form>
-  </aside>`;
-  $('lc').value=co;document.body.style.overflow='hidden';$('ln').focus();
+function authTheme(){
+  const v=$('ac').value;document.documentElement.dataset.co=v;
+  $('algl').src=CO[v].logoL;$('algd').src=CO[v].logoD;$('algl').alt=$('algd').alt=CO[v].nama;
+  document.title='Masuk - Katalog Alat Laboratorium';
 }
 async function doLogin(e){
-  e.preventDefault();const body={company:$('lc').value,director:$('ln').value.trim(),pin:$('lp').value};
-  $('lb').disabled=true;$('le').textContent='';
+  e.preventDefault();const body={company:$('ac').value,director:$('an').value.trim(),pin:$('ap').value};
+  const fail=m=>{$('ae').textContent=m;$('ab').disabled=false;$('ab').textContent='Masuk'};
+  $('ab').disabled=true;$('ab').textContent='Memeriksa...';$('ae').textContent='';
   try{
     let j;
-    if(window.WHM_DATA)j=body.pin==='1234'&&body.director?{ok:true,token:'demo',director:body.director,company:body.company}:{ok:false,error:'Contoh: isi nama apa saja, PIN 1234'};
+    if(window.WHM_DATA)j=body.pin==='1234'&&body.director?{ok:true,token:'demo',director:body.director,company:body.company}:{ok:false,error:'Contoh isian: nama apa saja, PIN 1234'};
+    else if(!CONFIG.API)return fail('API belum diisi di config.js, jadi login belum bisa dipakai.');
     else j=await api('login',body);
-    if(!j.ok){$('le').textContent=j.error||'Nama atau PIN tidak cocok';$('lb').disabled=false;return}
+    if(!j.ok)return fail(j.error||'Nama atau PIN tidak cocok');
     ses={token:j.token,company:j.company,director:j.director};store.sset('ses',JSON.stringify(ses));
-    if(j.company!==co){co=j.company;store.set('co',co);history.replaceState(null,'','?c='+co)}
-    closeLayer();await refresh(true);toast('Berhasil masuk');
-  }catch(err){$('le').textContent='Tidak bisa terhubung ke server';$('lb').disabled=false}
+    co=j.company;store.set('co',co);history.replaceState(null,'',location.pathname+'?c='+co);
+    mode='catalog';boot();toast('Selamat datang, '+j.director);
+  }catch(err){fail('Tidak bisa terhubung ke server. Periksa URL API di config.js.')}
 }
-function logout(silent){ses=null;store.sset('ses',null);closeLayer();refresh(true).then(()=>!silent&&toast('Sudah keluar'))}
+function logout(silent){
+  ses=null;store.sset('ses',null);
+  if(silent){admBar();apply();return}
+  location.href=location.pathname;
+}
+function boot(){
+  if(mode==='login'){$('auth').hidden=false;$('app').hidden=true;authTheme();$('an').focus();
+    if(window.WHM_DATA)document.querySelector('.fine').insertAdjacentHTML('afterbegin','<b>Halaman contoh.</b> Isi nama apa saja dan PIN <b>1234</b> untuk mencoba mode direktur.<br><br>');
+    return}
+  $('auth').hidden=true;$('app').hidden=false;
+  document.documentElement.dataset.co=co;theme();refresh(true);
+}
 async function adminCall(action,body){
   if(window.WHM_DATA)return {ok:true};
   const j=await api(action,{token:ses.token,...body});if(!j.ok&&j.error==='sesi'){logout(true);toast('Sesi berakhir, silakan masuk lagi')}return j}
@@ -418,38 +589,42 @@ async function share(){
 /* ---- muat ulang */
 async function refresh(quiet){
   const b=$('refresh');b.classList.add('spin');
-  try{await load(true);theme();buildFilters();apply();promos();admBar();route();if(!quiet)toast('Data terbaru dimuat'+(D.version?' ('+D.version+')':''))}
-  catch(e){if(!quiet)toast('Tidak bisa memuat data terbaru')}
+  try{await load(true);theme();buildFilters();apply();promos();admBar();route();
+    if(!quiet)toast(apiNote?'Data dimuat dari salinan data.json':'Data terbaru dimuat'+(D.version?' ('+D.version+')':''))}
+  catch(e){$('empty').hidden=false;
+    $('empty').innerHTML=`<p><b>Data produk tidak bisa dimuat.</b></p><p class="note" style="max-width:640px;margin:8px auto">${esc(e.message)}</p>`;
+    if(!quiet)toast('Data tidak bisa dimuat')}
   finally{setTimeout(()=>b.classList.remove('spin'),400)}
 }
 
 /* ---- events */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-id],[data-c],[data-close],[data-savedisc],[data-cleardisc],#more,#refresh,#login,#share,#logout');if(!t)return;
+  const t=e.target.closest('[data-id],[data-c],[data-s],[data-close],[data-savedisc],[data-cleardisc],#more,#refresh,#share,#logout,#pdisc');if(!t)return;
   if(t.dataset.id!==undefined)openDetail(t.dataset.id);
   else if(t.dataset.c!==undefined){cat=t.dataset.c;$('sub').value='';buildFilters();apply()}
+  else if(t.dataset.s!==undefined){$('sub').value=$('sub').value===t.dataset.s?'':t.dataset.s;buildFilters();apply()}
+  else if(t.id==='pdisc'){$('sort').value='disc';apply();$('grid').scrollIntoView({behavior:'smooth',block:'start'})}
   else if(t.hasAttribute('data-close'))closeLayer();
   else if(t.dataset.savedisc)saveDisc(t.dataset.savedisc,false);
   else if(t.dataset.cleardisc)saveDisc(t.dataset.cleardisc,true);
   else if(t.id==='more')more();
   else if(t.id==='refresh')refresh();
-  else if(t.id==='login')isAdm()?toast('Anda sudah masuk sebagai '+ses.director):openLogin();
   else if(t.id==='share')share();
   else if(t.id==='logout')logout();
 });
-document.addEventListener('submit',e=>{if(e.target.id==='lf')doLogin(e)});
-document.addEventListener('change',e=>{if(e.target.id==='swInc')setShowInc(e.target.checked)});
+document.addEventListener('submit',e=>{if(e.target.id==='af')doLogin(e)});
+document.addEventListener('change',e=>{if(e.target.id==='swInc')setShowInc(e.target.checked);if(e.target.id==='ac')authTheme()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('layer').innerHTML)closeLayer()});
 let tm;['q','q2'].forEach(i=>$(i).addEventListener('input',e=>{$('q').value=$('q2').value=e.target.value;clearTimeout(tm);tm=setTimeout(apply,120)}));
-$('theme').addEventListener('click',()=>{const r=document.documentElement;
+const flipTheme=()=>{const r=document.documentElement;
   const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
-  r.dataset.theme=dark?'light':'dark';store.set('theme',r.dataset.theme)});
+  r.dataset.theme=dark?'light':'dark';store.set('theme',r.dataset.theme)};
+['theme','theme2'].forEach(i=>$(i).addEventListener('click',flipTheme));
 {const th=store.get('theme');if(th==='dark'||th==='light')document.documentElement.dataset.theme=th}
 $('home').addEventListener('click',e=>{e.preventDefault();cat='';$('q').value=$('q2').value='';$('sub').value='';$('tipe').value='';buildFilters();apply();scrollTo(0,0)});
 ['sub','tipe','sort'].forEach(i=>$(i).addEventListener('change',apply));
 addEventListener('hashchange',()=>{location.hash?route():($('layer').innerHTML='',document.body.style.overflow='')});
 /* ---- mulai */
-document.documentElement.dataset.co=co;theme();
-refresh(true);
+boot();
 </script>
 </html>

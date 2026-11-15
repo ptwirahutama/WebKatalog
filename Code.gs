@@ -101,7 +101,8 @@ function includes(withPrice) {
 }
 function promos(co) {
   return table(SH.promo).rows.filter(function (r) { var c = String(r['Perusahaan']).toLowerCase(); return yes(r['Aktif']) && (c === 'semua' || c === 'all' || c === co); })
-    .map(function (r) { return {judul: r['Judul'], teks: r['Teks'], label: r['Label Tombol'], s: ymd(r['Mulai']), e: ymd(r['Selesai']), co: 'all', aktif: true}; });
+    .map(function (r) { return {judul: r['Judul'], teks: r['Teks'], label: r['Label Tombol'], img: r['Gambar'] || '',
+      s: ymd(r['Mulai']), e: ymd(r['Selesai']), co: 'all', aktif: true}; });
 }
 function companyInfo(co) {
   var r = companies()[co] || {}, o = {}; o[co] = {nama: r['Nama Perusahaan'], wa: String(r['WhatsApp'] || '').replace(/\D/g, ''), showInc: yes(r['Tampil Harga Include'])}; return o;
